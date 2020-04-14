@@ -70,6 +70,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data: () => ({
     valid: true,
@@ -96,24 +98,22 @@ export default {
 
   methods: {
     validate() {
-      this.$refs.form.validate();
-      // Création du formulaire
-      let formData = new FormData();
-      formData.append("prenom", this.prenom);
-      formData.append("nom", this.nom);
-      formData.append("email", this.email);
-      // Appel avec axios
-      axios
-        .post(
-          process.env.VUE_APP_SERVEUR + "/api/idhn_create_account",
-          formData
-        )
-        .then(response => {
-          alert(response.data.message);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      if (this.$refs.form.validate()) {
+        // Création du formulaire
+        let formData = new FormData();
+        formData.append("prenom", this.prenom);
+        formData.append("nom", this.name);
+        formData.append("email", this.email);
+        // Appel avec axios
+        axios
+          .post("/api/idhn_create_account", formData)
+          .then(response => {
+            alert(response.data.message);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
     },
     reset() {
       this.$refs.form.reset();
