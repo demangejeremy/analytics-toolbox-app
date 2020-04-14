@@ -4,7 +4,7 @@
 
 # Importations
 import pymongo
-import os
+from os import environ 
 from flask import Flask
 from flask import request
 from flask import escape
@@ -23,10 +23,19 @@ def idhn():
     email = escape(request.form['email'])
     datetime_object = datetime.datetime.now()
     # Enregistrer en BDD
-    myclient = pymongo.MongoClient(os.environ['MONGO_URL'])
+    try:
+        myclient = pymongo.MongoClient(environ.get('MONGODB_URL'))
+    except:
+        print("Connexion impossible à la BDD")
+        print(environ.get('MONGODB_URL'))
+        raise
     mydb = myclient["analyticstoolbox"]
     # Ajouter dans une collection
     mycol = mydb["pre_inscription_idhn"]
+    # Vérifier si le mail n'existe pas
+    for x in mycol.find({ "email": email }):
+        print(x)
+        return jsonify(success="no", message="Votre inscription a déjà été pris en compte. Nous reviendrons vers vous sous peu.")
     mydict = { "prenom": prenom, "nom": nom, "email": email, "date": str(datetime_object)}
     # Ajouter en bdd
     try:
