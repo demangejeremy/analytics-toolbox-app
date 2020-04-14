@@ -1,92 +1,56 @@
 <template>
-  <v-layout
-    column
-    justify-center
-    align-center
-  >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
-      <div class="text-center">
-        <logo />
-        <vuetify-logo />
+  <v-layout column justify-center align-center>
+    <v-flex xs12 sm8 md6>
+      <div class="text-center mt-12">
+        <h1>Text Analytics Toolbox</h1>
+        <h3>
+          Des analyses de textes simplifiées et générées en quelques secondes
+          dans le cloud
+        </h3>
       </div>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
+      <v-card class="mt-12">
+        <v-card-title class="headline d-flex justify-center pt-4">
+          🎉 Text Analytics Toolbox x IDHN 🎉
         </v-card-title>
         <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
           <p>
-            For more information on Vuetify, check out the <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-            >
-              documentation
-            </a>.
+            Text Analytics Toolbox (actuellement en version bêta), vous permets
+            de gérer vos corpus et de lancer des analyses de celles-ci
+            directement en ligne. Nous possédons plusieurs serveurs puissants en
+            Europe qui vous permettront de générer vos analyses dans le cloud en
+            seulement quelques secondes.
           </p>
           <p>
-            If you have questions, please join the official <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              title="chat"
+            <b>
+              Doctorant de l'IDHN ? Nous vous mettons à disposition cet outil
+              gratuitement en ligne pour le temps de vos recherches.</b
             >
-              discord
-            </a>.
           </p>
           <p>
-            Find a bug? Report it on the github <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              title="contribute"
-            >
-              issue board
-            </a>.
+            Notre outil est en Open Source (sous licence MIT). Nous vous
+            indiquerons dans quelques semaines comment l'installer sur votre
+            propre serveur et nous vous fournirons le code source nécessaire.
           </p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-          >
-            Nuxt Documentation
-          </a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
+          <p>
+            Pour toute question, merci de contacter Jérémy DEMANGE à cette
+            adresse : jeremy (at) fakir.io
+          </p>
           <v-btn
-            color="primary"
+            to="/creer-compte-idhn"
             nuxt
-            to="/inspire"
+            block
+            class="mt-8 mb-4"
+            color="secondary"
+            dark
+            >Je suis doctorant à l'IDHN et je souhaite créer un compte
+            gratuitement</v-btn
           >
-            Continue
-          </v-btn>
-        </v-card-actions>
+        </v-card-text>
       </v-card>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import Logo from '@/components/Logo.vue'
-import VuetifyLogo from '@/components/VuetifyLogo.vue'
-
-export default {
-  components: {
-    Logo,
-    VuetifyLogo
-  }
-}
+export default {};
 </script>

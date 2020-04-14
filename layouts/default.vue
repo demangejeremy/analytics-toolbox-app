@@ -73,19 +73,19 @@ export default {
       items: [
         {
           icon: "mdi-apps",
-          title: "Welcome",
+          title: "Bienvenue",
           to: "/"
         },
         {
-          icon: "mdi-chart-bubble",
-          title: "Inspire",
-          to: "/inspire"
+          icon: "mdi-account-plus",
+          title: "Créer un compte",
+          to: "/creer-compte-idhn"
         }
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: "Analytics Toolbox"
+      title: "Text Analytics Toolbox"
     };
   }
 };
