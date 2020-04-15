@@ -11,7 +11,16 @@
       <hr class="mt-6" />
     </v-container>
     <v-container>
-      <h2>Mes dossiers</h2>
+      <v-row>
+        <v-col class="d-flex justify-start" cols="6">
+          <h2>Mes dossiers</h2>
+        </v-col>
+        <v-col class="d-flex justify-end" cols="6">
+          <v-btn class="ma-0" tile outlined color="white">
+            <v-icon left>mdi-plus</v-icon> Ajouter un dossier
+          </v-btn>
+        </v-col>
+      </v-row>
       <v-row class="mt-8 d-flex justify-start">
         <v-col class="d-flex justify-start" cols="4">
           <v-card class="mx-auto" max-width="400">

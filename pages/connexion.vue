@@ -120,8 +120,8 @@ export default {
             // Enlever le loading
             this.loading = false;
             // For debug
-            // this.$store.commit("connect/yes", "Linguiste", 1);
-            // this.$nuxt.$router.replace({ path: "/app" });
+            this.$store.commit("connect/yes", "Linguiste", 1);
+            this.$nuxt.$router.replace({ path: "/app" });
           });
       }
     },

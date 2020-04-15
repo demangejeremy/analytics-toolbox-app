@@ -26,7 +26,7 @@ export default {
       pageNotFound:
         "Page 404. La page que vous consultez n'existe pas (ou plus)",
       otherError:
-        "Erreur technique. Notre équipe a été prévenu pour résoudre ce problème rapidement."
+        "Erreur technique. Notre équipe a été prévenue pour résoudre ce problème rapidement."
     };
   },
   head() {
