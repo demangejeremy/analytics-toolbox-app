@@ -34,18 +34,6 @@
         <nuxt />
       </v-container>
     </v-content>
-    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
     <v-footer :fixed="fixed" class="d-flex justify-center" app>
       <span class="caption"
         >&copy; {{ new Date().getFullYear() }} -
@@ -64,6 +52,9 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
@@ -74,18 +65,18 @@ export default {
       items: [
         {
           icon: "mdi-apps",
-          title: "Bienvenue",
-          to: "/"
+          title: "Dashboard",
+          to: "/app"
         },
         {
-          icon: "mdi-account",
-          title: "Se connecter",
-          to: "/connexion"
+          icon: "mdi-folder-multiple",
+          title: "Créer un dossier",
+          to: "/app/create-folder"
         },
         {
           icon: "mdi-account-plus",
-          title: "Créer un compte",
-          to: "/creer-compte-idhn"
+          title: "Se déconnecter",
+          to: "/app/deconnexion"
         }
       ],
       miniVariant: false,
