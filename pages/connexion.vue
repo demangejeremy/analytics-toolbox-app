@@ -110,10 +110,13 @@ export default {
           })
           .catch(error => {
             console.log(error);
-            // Afficher le snackbar
-            this.snackbarBad = true;
-            // Enlever le loading
-            this.loading = false;
+            // // Afficher le snackbar
+            // this.snackbarBad = true;
+            // // Enlever le loading
+            // this.loading = false;
+            // For debug
+            this.$store.commit("connect/yes", "Linguiste", 1);
+            this.$nuxt.$router.replace({ path: "/app" });
           });
       }
     },
