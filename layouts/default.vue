@@ -65,6 +65,13 @@
 
 <script>
 export default {
+  metaInfo: {
+    titleTemplate: "%s - Text Analytics Toolbox",
+    htmlAttrs: {
+      lang: "fr",
+      amp: false
+    }
+  },
   data() {
     return {
       majLog: false,

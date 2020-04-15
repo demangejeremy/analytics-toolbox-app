@@ -3,5 +3,12 @@
 </template>
 
 <script>
-export default {};
+export default {
+  head() {
+    return {
+      titleTemplate: "Créer un dossier - Text Analytics Toolbox"
+    };
+  },
+  layout: "app"
+};
 </script>

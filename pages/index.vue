@@ -54,5 +54,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+  head() {
+    return {
+      titleTemplate: "Text Analytics Toolbox"
+    };
+  }
+};
 </script>

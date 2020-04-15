@@ -70,6 +70,11 @@ import axios from "axios";
 import { mapMutations } from "vuex";
 
 export default {
+  head() {
+    return {
+      titleTemplate: "Se connecter - Text Analytics Toolbox"
+    };
+  },
   data: () => ({
     login: "",
     password: "",

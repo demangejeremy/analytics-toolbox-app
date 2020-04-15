@@ -82,6 +82,11 @@
 import axios from "axios";
 
 export default {
+  head() {
+    return {
+      titleTemplate: "Text Analytics Toolbox x IDHN"
+    };
+  },
   data: () => ({
     valid: true,
     loading: false,

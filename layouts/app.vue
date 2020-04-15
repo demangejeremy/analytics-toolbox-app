@@ -56,6 +56,13 @@ import { mapMutations } from "vuex";
 import { mapState } from "vuex";
 
 export default {
+  metaInfo: {
+    titleTemplate: "%s - Text Analytics Toolbox",
+    htmlAttrs: {
+      lang: "fr",
+      amp: false
+    }
+  },
   data() {
     return {
       majLog: false,
