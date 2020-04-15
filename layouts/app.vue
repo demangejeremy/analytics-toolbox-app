@@ -71,7 +71,7 @@ export default {
         {
           icon: "mdi-folder-multiple",
           title: "Créer un dossier",
-          to: "/app/create-folder"
+          to: "/app/folders"
         },
         {
           icon: "mdi-account-plus",
