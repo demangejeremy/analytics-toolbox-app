@@ -77,6 +77,11 @@ export default {
           to: "/"
         },
         {
+          icon: "mdi-account",
+          title: "Se connecter",
+          to: "/connexion"
+        },
+        {
           icon: "mdi-account-plus",
           title: "Créer un compte",
           to: "/creer-compte-idhn"

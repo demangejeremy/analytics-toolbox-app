@@ -11,7 +11,7 @@
       <v-card class="mt-12">
         <v-container>
           <v-card-title class="headline d-flex justify-center pt-4">
-            🎉 Text Analytics Toolbox x IDHN 🎉
+            🎁 Text Analytics Toolbox x IDHN
           </v-card-title>
           <v-card-text>
             <p>

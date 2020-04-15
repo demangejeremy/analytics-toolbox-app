@@ -14,17 +14,10 @@
       </v-btn>
     </v-snackbar>
     <v-flex xs12 sm8 md6>
-      <div class="text-center mt-12">
-        <h1>Text Analytics Toolbox</h1>
-        <h3>
-          Des analyses de textes simplifiées et générées en quelques secondes
-          dans le cloud
-        </h3>
-      </div>
       <v-card class="mt-12">
         <v-container>
           <v-card-title class="headline d-flex justify-center pt-4">
-            🎉 Text Analytics Toolbox x IDHN 🎉
+            🎁 Text Analytics Toolbox x IDHN
           </v-card-title>
           <v-card-text>
             <p>
