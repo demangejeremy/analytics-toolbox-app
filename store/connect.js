@@ -5,12 +5,12 @@ export const state = () => ({
 });
 
 export const mutations = {
-  connect(state, prenom, id) {
+  yes(state, prenom, id) {
     state.id = id;
     state.prenom = prenom;
     state.login = true;
   },
-  deconnect(state) {
+  no(state) {
     state.id = 0;
     state.prenom = "";
     state.login = false;

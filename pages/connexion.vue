@@ -67,6 +67,7 @@
 
 <script>
 import axios from "axios";
+import { mapMutations } from "vuex";
 
 export default {
   data: () => ({
@@ -93,19 +94,19 @@ export default {
         this.loading = true;
         // Création du formulaire
         let formData = new FormData();
-        formData.append("prenom", this.prenom);
-        formData.append("nom", this.name);
-        formData.append("email", this.email);
+        formData.append("login", this.login);
+        formData.append("password", this.password);
         // Appel avec axios
         axios
-          .post("/api/idhn_create_account", formData)
+          .post("/api/connexion", formData)
           .then(response => {
-            // Mettre snackbar
-            this.snackbarGood = true;
-            this.snackbarMessage = response.data.message;
             // Enlever le loading
-            this.disabledButton = true;
             this.loading = false;
+            // Verifier
+            if (response.data.success == "yes") {
+              this.$store.commit("connect/yes", response.data.nom, 1);
+              this.$nuxt.$router.replace({ path: "/app" });
+            }
           })
           .catch(error => {
             console.log(error);
