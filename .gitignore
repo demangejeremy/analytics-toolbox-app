@@ -90,3 +90,5 @@ sw.*
 *.swp
 
 .now
+/.now
+/now_cache
