@@ -1,5 +1,41 @@
 <template>
   <div>
+    <v-dialog v-model="affichageWindows" persistent max-width="600px">
+      <v-card outlined>
+        <v-card-title>
+          <span class="headline"><b>Ajouter un nouveau dossier</b></span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12" sm="12">
+                <v-text-field
+                  label="Nom du dossier"
+                  autocomplete="mnjuio"
+                  required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="12">
+                <v-text-field
+                  label="Description du dossier"
+                  autocomplete="adp"
+                  hint="Décrivez l'objectif de vos recherches dans ce dossier."
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="affichageWindows = false"
+            >Fermer</v-btn
+          >
+          <v-btn color="blue darken-1" text @click="affichageWindows = false"
+            >Créer</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-container>
       <h1>Bonjour Linguiste 👋</h1>
       <p class="mt-4">Bienvenue sur l'application Text Analytics Toolbox.</p>
@@ -16,7 +52,7 @@
           <h2>Mes dossiers</h2>
         </v-col>
         <v-col class="d-flex justify-end" cols="6">
-          <v-btn class="ma-0" tile outlined color="white">
+          <v-btn class="ma-0" tile outlined color="white" @click="addFolder">
             <v-icon left>mdi-plus</v-icon> Ajouter un dossier
           </v-btn>
         </v-col>
@@ -55,12 +91,20 @@
 
 <script>
 export default {
+  data: () => ({
+    affichageWindows: false
+  }),
   head() {
     return {
       titleTemplate: "Bienvenue - Text Analytics Toolbox"
     };
   },
   layout: "app",
-  middleware: "auth"
+  middleware: "auth",
+  methods: {
+    addFolder() {
+      this.affichageWindows = true;
+    }
+  }
 };
 </script>

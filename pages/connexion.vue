@@ -110,6 +110,10 @@ export default {
             // Verifier
             if (response.data.success == "yes") {
               this.$store.commit("connect/yes", response.data.nom, 1);
+              this.$cookies.set("loginDev", "cool", {
+                path: "/",
+                maxAge: 60 * 60 * 24 * 7
+              });
               this.$nuxt.$router.replace({ path: "/app" });
             }
           })
