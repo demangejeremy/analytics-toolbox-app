@@ -37,12 +37,7 @@
             </v-card-text>
 
             <v-card-actions>
-              <v-btn
-                color="orange"
-                to="app/see/tweets-politiques-2020"
-                nuxt
-                text
-              >
+              <v-btn color="orange" text>
                 Voir le dossier
               </v-btn>
             </v-card-actions>
@@ -82,12 +77,7 @@
             </v-card-text>
 
             <v-card-actions>
-              <v-btn
-                color="orange"
-                to="app/see/tweets-politiques-2020"
-                nuxt
-                text
-              >
+              <v-btn color="orange" text>
                 Voir le dossier
               </v-btn>
             </v-card-actions>
@@ -106,6 +96,12 @@ export default {
   data: () => ({
     id: ""
   }),
+
+  head() {
+    return {
+      titleTemplate: this.id + " - Text Analytics Toolbox"
+    };
+  },
 
   created() {
     this.test();

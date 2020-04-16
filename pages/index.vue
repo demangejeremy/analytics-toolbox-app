@@ -37,7 +37,7 @@
               class="mt-8 mb-4"
               color="secondary"
               dark
-              >Créer un compte gratuitement</v-btn
+              >Créer un compte</v-btn
             >
           </v-card-text>
         </v-container>
