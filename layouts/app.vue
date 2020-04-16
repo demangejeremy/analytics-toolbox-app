@@ -76,11 +76,6 @@ export default {
           to: "/app"
         },
         {
-          icon: "mdi-folder-multiple",
-          title: "Créer un dossier",
-          to: "/app/folders"
-        },
-        {
           icon: "mdi-account-plus",
           title: "Se déconnecter",
           to: "/app/deconnexion"

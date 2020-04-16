@@ -25,20 +25,18 @@
               src="/img/tweets-politiques-test.jpg"
               gradient="to bottom left, rgba(100,115,201,.33), rgba(25,32,72,.7)"
             >
-              <v-card-title>Tweets politiques 2020</v-card-title>
+              <v-card-title>Corpus / Tweets 2020</v-card-title>
             </v-img>
 
             <v-card-text class="text--primary">
               <p>
-                Ce dossier est un dossier de test pour vous expliquer le
-                fonctionnement de l'application. Il est impossible de supprimer
-                ce dossier de votre liste.
+                Premier corpus de texte.
               </p>
             </v-card-text>
 
             <v-card-actions>
               <v-btn color="orange" text>
-                Voir le dossier
+                Voir le corpus
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -65,20 +63,20 @@
               src="/img/tweets-politiques-test.jpg"
               gradient="to bottom left, rgba(100,115,201,.33), rgba(25,32,72,.7)"
             >
-              <v-card-title>Tweets politiques 2020</v-card-title>
+              <v-card-title
+                >Mots les plus fréquents <br />/ Nuage de mots</v-card-title
+              >
             </v-img>
 
             <v-card-text class="text--primary">
               <p>
-                Ce dossier est un dossier de test pour vous expliquer le
-                fonctionnement de l'application. Il est impossible de supprimer
-                ce dossier de votre liste.
+                Première analyse.
               </p>
             </v-card-text>
 
             <v-card-actions>
               <v-btn color="orange" text>
-                Voir le dossier
+                Voir l'analyse
               </v-btn>
             </v-card-actions>
           </v-card>

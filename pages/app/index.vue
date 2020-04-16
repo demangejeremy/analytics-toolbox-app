@@ -41,8 +41,7 @@
       <p class="mt-4">Bienvenue sur l'application Text Analytics Toolbox.</p>
       <p>
         L'application vous permets de gérer vos corpus, de lancer des
-        pré-traitements et des analyses de celles-ci dans le cloud ! (et le tout
-        sans avoir de connaissances particulières en programmation, eh oui)
+        pré-traitements et des analyses de celles-ci dans le cloud.
       </p>
       <hr class="mt-6" />
     </v-container>
