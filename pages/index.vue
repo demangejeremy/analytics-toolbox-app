@@ -11,7 +11,7 @@
       <v-card class="mt-12">
         <v-container>
           <v-card-title class="headline d-flex justify-center pt-4">
-            🎁 Text Analytics Toolbox x IDHN
+            Text Analytics Toolbox x IDHN
           </v-card-title>
           <v-card-text>
             <p>
@@ -20,12 +20,6 @@
               directement en ligne. Nous possédons plusieurs serveurs puissants
               en Europe qui vous permettront de générer vos analyses dans le
               cloud en seulement quelques secondes.
-            </p>
-            <p>
-              <b>
-                Doctorant de l'IDHN ? Nous vous mettons à disposition cet outil
-                gratuitement en ligne pour le temps de vos recherches.</b
-              >
             </p>
             <p>
               Notre outil est en Open Source (sous licence MIT). Nous vous
@@ -43,8 +37,7 @@
               class="mt-8 mb-4"
               color="secondary"
               dark
-              >Je suis doctorant à l'IDHN et je souhaite créer un compte
-              gratuitement</v-btn
+              >Créer un compte gratuitement</v-btn
             >
           </v-card-text>
         </v-container>
