@@ -38,7 +38,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ["@nuxtjs/axios", ["cookie-universal-nuxt", { alias: "cookiz" }]],
+  modules: ["@nuxtjs/axios", "cookie-universal-nuxt"],
 
   axios: {
     // proxyHeaders: false

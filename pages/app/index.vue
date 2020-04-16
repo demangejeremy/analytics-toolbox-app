@@ -78,7 +78,12 @@
             </v-card-text>
 
             <v-card-actions>
-              <v-btn color="orange" text>
+              <v-btn
+                color="orange"
+                to="app/see/tweets-politiques-2020"
+                nuxt
+                text
+              >
                 Voir le dossier
               </v-btn>
             </v-card-actions>
