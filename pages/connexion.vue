@@ -1,12 +1,12 @@
 <template>
   <v-layout column justify-center align-center>
-    <v-snackbar color="success" v-model="snackbarGood" :timeout="10000">
-      {{ snackbarMessage }}
-      <v-btn color="white" text @click="snackbarGood = false">
+    <v-snackbar color="error" v-model="snackbarFalse" :timeout="6000">
+      Le login ou le mot de passe est incorrect.
+      <v-btn color="white" text @click="snackbarFalse = false">
         Fermer
       </v-btn>
     </v-snackbar>
-    <v-snackbar color="error" v-model="snackbarBad" :timeout="10000">
+    <v-snackbar color="error" v-model="snackbarBad" :timeout="6000">
       Un problème s'est produit. Notre équipe a été averti. Merci de vous
       rapprocher de notre équipe pour résoudre votre problème.
       <v-btn color="white" text @click="snackbarBad = false">
@@ -82,8 +82,7 @@ export default {
     valid: true,
     loading: false,
     snackbarGood: false,
-    snackbarMessage: "",
-    snackbarBad: false,
+    snackbarFalse: false,
     disabledButton: false,
     name: "",
     nameRules: [v => !!v || "Le mot de passe doit être rempli."],
@@ -113,13 +112,15 @@ export default {
               this.$store.commit("connect/yes", response.data.nom, 1);
               this.$cookies.set("loginDev", "cool", {
                 path: "/",
-                maxAge: 60 * 60 * 24 * 7
+                maxAge: 86400
               });
               this.$cookies.set("sess", String(response.data.token), {
                 path: "/",
                 maxAge: 86400
               });
               this.$nuxt.$router.replace({ path: "/app" });
+            } else {
+              this.snackbarFalse = true;
             }
           })
           .catch(error => {
