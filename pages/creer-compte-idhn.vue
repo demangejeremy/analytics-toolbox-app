@@ -87,6 +87,7 @@ export default {
       titleTemplate: "Text Analytics Toolbox x IDHN"
     };
   },
+  middleware: "guest",
   data: () => ({
     valid: true,
     loading: false,

@@ -10,9 +10,11 @@ export default {
   layout: "app",
   middleware: "auth",
   mounted() {
-    this.$cookies.set("loginDev", "no", {
-      path: "/",
-      maxAge: 60 * 60 * 24 * 7
+    this.$cookies.remove("loginDev", {
+      path: "/"
+    });
+    this.$cookies.remove("sess", {
+      path: "/"
     });
     this.$nuxt.$router.replace({ path: "/connexion" });
   }

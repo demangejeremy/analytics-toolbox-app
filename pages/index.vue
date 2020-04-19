@@ -53,18 +53,6 @@ export default {
       titleTemplate: "Text Analytics Toolbox"
     };
   },
-  created() {
-    // Si l'utilisateur n'est pas authentifié
-    console.log("ici");
-    if (!this.$store.state.connect.login) {
-      console.log("et là !");
-      if (this.$cookies.get("loginDev") == "cool") {
-        this.$store.commit("connect/yes", "Linguiste", 1);
-        this.$nuxt.$router.replace({ path: "/app" });
-      }
-    } else {
-      this.$nuxt.$router.replace({ path: "/app" });
-    }
-  }
+  middleware: "guest"
 };
 </script>
