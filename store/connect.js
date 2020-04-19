@@ -16,3 +16,7 @@ export const mutations = {
     state.login = false;
   }
 };
+
+export const getters = {
+  login: state => state.login
+};
