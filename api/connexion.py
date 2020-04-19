@@ -9,7 +9,12 @@ from flask import Flask
 from flask import request
 from flask import escape
 from flask import jsonify
-import datetime
+from datetime import datetime  
+from datetime import timedelta  
+
+# Json webToken
+import jwt
+import simplejson as json
 
 # Mise en place de l'application
 app = Flask(__name__)
@@ -22,8 +27,16 @@ def idhn():
     login = escape(request.form['login'])
     password = escape(request.form['password'])
 
+    # Récupérer date
+    date = str(datetime.now() + timedelta(days=1))
+    print("Actual date: " + str(datetime.now()))
+    print(date)
+
+    # Générer le web Token
+    encoded = jwt.encode({'usr': login, 'dt': date}, environ.get('JWT_TOKEN'), algorithm='HS256')
+
     # Retour de résultat
     if login == "Linguiste" and password == "idhn4Ever!":
-        return jsonify(success="yes", nom="Linguiste", id=1)
+        return jsonify(success="yes", nom="Linguiste", id=1, token=encoded)
     else:
         return jsonify(success="no")

@@ -114,6 +114,10 @@ export default {
                 path: "/",
                 maxAge: 60 * 60 * 24 * 7
               });
+              this.$cookies.set("sess", String(response.data.token), {
+                path: "/",
+                maxAge: 86400
+              });
               this.$nuxt.$router.replace({ path: "/app" });
             }
           })
