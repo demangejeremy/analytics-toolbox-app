@@ -76,6 +76,11 @@ export default {
           to: "/app"
         },
         {
+          icon: "mdi-chart-bar",
+          title: "Analyses",
+          to: "/app/analytics"
+        },
+        {
           icon: "mdi-account-plus",
           title: "Se déconnecter",
           to: "/app/deconnexion"
