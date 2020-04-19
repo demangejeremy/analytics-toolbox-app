@@ -9,6 +9,15 @@
           <v-container>
             <v-row>
               <v-col cols="12" sm="12">
+                <v-file-input
+                  :rules="rulesImg"
+                  accept="image/png, image/jpeg, image/bmp"
+                  placeholder="Choisissez une image d'illustration"
+                  prepend-icon="mdi-camera"
+                  label="Image d'illustration"
+                ></v-file-input>
+              </v-col>
+              <v-col cols="12" sm="12">
                 <v-text-field
                   label="Nom du dossier"
                   autocomplete="mnjuio"
@@ -96,6 +105,10 @@
 <script>
 export default {
   data: () => ({
+    rulesImg: [
+      value =>
+        !value || value.size < 2000000 || "L'image doit être inférieure à 2MB."
+    ],
     affichageWindows: false
   }),
   head() {
