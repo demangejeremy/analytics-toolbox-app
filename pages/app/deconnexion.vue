@@ -8,8 +8,8 @@ import { mapState } from "vuex";
 
 export default {
   layout: "app",
-  middleware: "auth",
   mounted() {
+    this.$store.commit("connect/no");
     this.$cookies.remove("loginDev", {
       path: "/"
     });
