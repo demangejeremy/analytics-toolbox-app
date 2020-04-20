@@ -56,25 +56,19 @@
             <form @submit.prevent="formAddCorpus">
               <v-row>
                 <v-col cols="12" sm="12">
-                  <!-- <v-file-input
+                  <v-file-input
                     :rules="rulesFile"
                     accept=".txt"
                     placeholder="Choisissez un fichier texte"
                     prepend-icon="mdi-file"
                     label="Fichier texte"
-                    ref="file"
-                    @change="handleFileUpload()"
-                  ></v-file-input> -->
-                  <input
-                    type="file"
-                    accept=".txt"
-                    ref="file"
-                    @change="handleFileUpload()"
-                  />
+                    v-model="file"
+                  ></v-file-input>
                 </v-col>
                 <v-col cols="12" sm="12">
                   <v-select
                     :items="['Fichier texte simple', 'Fichier format iramuteq']"
+                    v-model="typeFile"
                     label="Format du fichier"
                   ></v-select>
                 </v-col>
@@ -82,6 +76,7 @@
                   <v-text-field
                     label="Nom du fichier"
                     autocomplete="mnjuio"
+                    v-model="nomFile"
                     :counter="30"
                     required
                   ></v-text-field>
@@ -90,6 +85,7 @@
                   <v-text-field
                     label="Description du fichier"
                     autocomplete="adp"
+                    v-model="descriptionFile"
                     hint="Décrivez ce que l'on peut trouver dans le fichier texte."
                     :counter="150"
                   ></v-text-field>
@@ -296,6 +292,10 @@ export default {
     // Liste analyses
     analyses: ["Nuage de mots", "Topic Modelling (NLTK & Gensim)"],
     selectedAnalyses: [],
+    // Fichiers
+    typeFile: null,
+    nomFile: null,
+    descriptionFile: null,
     // Formulaires
     fileUpload: null,
     formData: null,
@@ -350,6 +350,7 @@ export default {
   methods: {
     formAddCorpus() {
       console.log("test");
+      this.upload();
     },
     toggle() {
       this.$nextTick(() => {
@@ -359,22 +360,6 @@ export default {
           this.selectedPretraitements = this.pretraitements.slice();
         }
       });
-    },
-    prepareFormData: function() {
-      this.formData = new FormData();
-      this.formData.append("upload_preset", "test");
-      this.formData.append("tags", "browser-upload"); // Optional - add tag for image admin in Cloudinary
-      this.formData.append("file", this.fileUpload);
-    },
-    handleFileUpload() {
-      console.log("Fichier modifié...");
-      console.log(this.$refs);
-      console.log(this.$refs.file.files[0]);
-      this.fileUpload = this.$refs.file.files[0];
-      // for (let myvar in this.$refs.file.files) {
-      //   console.log("Un petit tour.");
-      //   this.fileUpload = myvar;
-      // }
     },
     submitFile() {
       this.upload();
@@ -395,53 +380,48 @@ export default {
       this.createAnalyse = false;
     },
     upload: function() {
-      let reader = new FileReader();
-      // attach listener to be called when data from file
-      reader.addEventListener(
-        "load",
-        function() {
-          this.fileContents = reader.result;
-          this.prepareFormData();
-          let cloudinaryUploadURL = `https://api.cloudinary.com/v1_1/fakir/upload`;
-          let requestObj = {
-            url: cloudinaryUploadURL,
-            method: "POST",
-            data: this.formData,
-            onUploadProgress: function(progressEvent) {
-              console.log("progress", progressEvent);
-              this.progress = Math.round(
-                (progressEvent.loaded * 100.0) / progressEvent.total
-              );
-              console.log(this.progress);
-              //bind "this" to access vue state during callback
-            }.bind(this)
-          };
-          //show progress bar at beginning of post
-          this.showProgress = true;
-          axios(requestObj)
-            .then(response => {
-              this.results = response.data;
-              console.log(this.results);
-              console.log("public_id", this.results.public_id);
-            })
-            .catch(error => {
-              this.errors.push(error);
-              console.log(this.error);
-            })
-            .finally(() => {
-              setTimeout(
-                function() {
-                  this.showProgress = false;
-                }.bind(this),
-                1000
-              );
-            });
-        }.bind(this),
-        false
-      );
-      // call for file read if there is a file
-      if (this.file && this.file.name) {
-        reader.readAsDataURL(this.file);
+      if (true) {
+        // Mettre le loading
+        this.loading = true;
+        // Création du formulaire
+        let formData = new FormData();
+        formData.append("importer-texte", this.file);
+        // Appel avec axios
+        axios
+          .post(
+            "https://demangejeremy.pythonanywhere.com/importer-texte-idhn",
+            formData
+          )
+          .then(response => {
+            // Traitement en API
+            console.log(response.data);
+            formData = new FormData();
+            formData.append("user", "Linguiste");
+            formData.append(
+              "lien",
+              `https://demangejeremy.pythonanywhere.com/static/idhn/${response.data.name}.txt`
+            );
+            formData.append("nom", this.nomFile);
+            formData.append("format", this.typeFile);
+            formData.append("description", this.descriptionFile);
+            // Appel avec axios
+            axios
+              .post("/api/import_corpus", formData)
+              .then(response2 => {
+                // Traitement en API
+                console.log(response2.data);
+                alert(response2.data.message);
+                document.location.reload(true);
+                // Fin de traitement en API
+              })
+              .catch(error2 => {
+                alert(error2.data);
+              });
+            // Fin de traitement en API
+          })
+          .catch(error => {
+            alert(error.data);
+          });
       }
     }
   }
