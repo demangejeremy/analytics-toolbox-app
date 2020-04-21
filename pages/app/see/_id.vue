@@ -193,7 +193,7 @@
     </v-dialog>
     <v-container>
       <h1>Dossier</h1>
-      <h3>{{ id }}</h3>
+      <!-- <h3>{{ id }}</h3> -->
       <hr class="mt-6" />
     </v-container>
     <v-container>
