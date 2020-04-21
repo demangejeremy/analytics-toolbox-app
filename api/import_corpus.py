@@ -20,6 +20,7 @@ def idhn():
     # Recupérer données du formulaire
     utilisateur = escape(request.form['user'])
     dossier = escape(request.form['dossier'])
+    idtxt = escape(request.form['idtxt'])
     lienFichier = escape(request.form['lien'])
     nomFichier = escape(request.form['nom'])
     formatFichier = escape(request.form['format'])
@@ -37,7 +38,7 @@ def idhn():
     # Ajouter dans une collection
     mycol = mydb["corpus_texte"]
     # Ajout en dictionnaire
-    mydict = { "utilisateur": utilisateur, "dossier": dossier, "lien": lienFichier, "nom": nomFichier, "format": formatFichier, "description": descriptionFichier, "date": str(datetime_object)}
+    mydict = { "utilisateur": utilisateur, "idtxt": idtxt, "dossier": dossier, "lien": lienFichier, "nom": nomFichier, "format": formatFichier, "description": descriptionFichier, "date": str(datetime_object)}
     # Ajouter en bdd
     try:
         mycol.insert_one(mydict)

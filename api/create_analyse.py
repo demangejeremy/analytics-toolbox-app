@@ -20,11 +20,11 @@ app = Flask(__name__)
 @app.route("/api/create_analyse", methods=["POST"])
 def idhn():
     # Recupérer données du formulaire
-    utilisateur = escape(request.form['user'])
     dossier = escape(request.form['dossier'])
-    lienAnalyse = escape(request.form['lien'])
-    nom = escape(request.form['nom'])
-    description = escape(request.form['description'])
+    corpus = escape(request.form['corpus'])
+    pre = escape(request.form['pre'])
+    analyse = escape(request.form['analyse'])
+    description = "À partir du corpus " + corpus
     datetime_object = datetime.datetime.now()
 
     # Enregistrer en BDD
@@ -33,11 +33,27 @@ def idhn():
     except:
         print("Connexion impossible à la BDD")
         raise
+
+    # Lien BDD
     mydb = myclient["analyticstoolbox"]
-    # Ajouter dans une collection
-    mycol = mydb["analyses"]
+
+    # Récupérer lien corpus
+    mycol = mydb["corpus_texte"]
+    myquery = { "dossier": dossier, "nom": corpus }
+    mydoc = mycol.find(myquery)
+
+    # Stockage
+    identifAnalyse = ""
+
+    # Affichage
+    print("Avant affichage")
+    for x in mydoc:
+        identifAnalyse = x["idtxt"]
+
     # Ajout en dictionnaire
-    mydict = { "utilisateur": utilisateur, "dossier": dossier, "lien": lienAnalyse, "nom": nom, "description": description, "date": str(datetime_object)}
+    mycol = mydb["analyses"]
+    mydict = { "dossier": dossier, "nom": analyse, "corpus": corpus, "pre": pre, "description": description, "idtxt": identifAnalyse, "date": str(datetime_object)}
+
     # Ajouter en bdd
     try:
         mycol.insert_one(mydict)

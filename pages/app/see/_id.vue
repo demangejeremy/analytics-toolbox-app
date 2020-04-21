@@ -191,7 +191,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="closeAnalyse">Fermer</v-btn>
-          <v-btn color="blue darken-1" text @click="closeAnalyse">Créer</v-btn>
+          <v-btn color="blue darken-1" text @click="goAnalyse">Créer</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -263,32 +263,40 @@
         </v-col>
       </v-row>
       <v-row class="mt-8 d-flex justify-start">
-        <v-col class="d-flex justify-start" cols="4">
-          <v-card class="mx-auto" max-width="400">
-            <v-img
-              class="white--text align-end"
-              height="200px"
-              src="/img/tweets-politiques-test.jpg"
-              gradient="to bottom left, rgba(100,115,201,.33), rgba(25,32,72,.7)"
-            >
-              <v-card-title
-                >Mots les plus fréquents <br />/ Nuage de mots</v-card-title
+        <div v-if="loadingAnalyses">
+          <h4>Liste des analyses en cours de chargement...</h4>
+        </div>
+        <div v-if="analyses">
+          <v-col
+            class="d-flex justify-start"
+            cols="4"
+            v-for="c in analyses"
+            :key="c.id"
+          >
+            <v-card class="mx-auto" max-width="400">
+              <v-img
+                class="white--text align-end"
+                height="200px"
+                src="/img/tweets-politiques-test.jpg"
+                gradient="to bottom left, rgba(100,115,201,.33), rgba(25,32,72,.7)"
               >
-            </v-img>
+                <v-card-title>{{ c.nom }}</v-card-title>
+              </v-img>
 
-            <v-card-text class="text--primary">
-              <p>
-                Première analyse.
-              </p>
-            </v-card-text>
+              <v-card-text class="text--primary">
+                <p>
+                  {{ c.description }}
+                </p>
+              </v-card-text>
 
-            <v-card-actions>
-              <v-btn color="orange" text @click="viewAnalyse = true">
-                Voir l'analyse
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
+              <v-card-actions>
+                <v-btn color="orange" text @click="openAnalyse(c.lien, c.nom)">
+                  Voir l'analyse
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+        </div>
       </v-row>
     </v-container>
   </div>
@@ -307,9 +315,11 @@ export default {
     corpusSelected: null,
     // Affichage des corpus
     listeCorpus: [],
+    listeAnalyses: [],
     lienIframe: null,
     corpusLive: null,
     loadingCorpus: true,
+    loadingAnalyses: true,
     corpus: [],
     // Affichage des analyses
     analyses: [],
@@ -378,9 +388,32 @@ export default {
 
   mounted() {
     this.getCorpus();
+    this.getAnalyse();
   },
 
   methods: {
+    goAnalyse() {
+      if (this.selectedAnalyses == "Nuage de mots") {
+        alert("Impossible de réaliser l'analyse suivante : Nuage de mots");
+        return;
+      }
+      let formData = new FormData();
+      // formData.append("user", "Linguiste");
+      formData.append("dossier", this.id);
+      formData.append("corpus", this.corpusSelected);
+      formData.append("pre", this.selectedPretraitements);
+      formData.append("analyse", this.selectedAnalyses);
+      // Appel avec axios
+      axios
+        .post("/api/create_analyse", formData)
+        .then(response => {
+          alert(response.data.message);
+          document.location.reload(true);
+        })
+        .catch(error => {
+          alert(error);
+        });
+    },
     openCorpus(lien, nom) {
       this.corpusLive = nom;
       this.lienIframe = lien;
@@ -399,7 +432,6 @@ export default {
           this.corpus = response.data.content;
           this.loadingCorpus = false;
           for (let i = 0; i < response.data.content.length; i++) {
-            console.log("Hello !");
             this.listeCorpus.push(response.data.content[i].nom);
           }
           // Fin de traitement en API
@@ -407,6 +439,28 @@ export default {
         .catch(error => {
           alert(error2.data);
           this.loadingCorpus = false;
+        });
+    },
+    getAnalyse() {
+      let formData = new FormData();
+      formData.append("user", "Linguiste");
+      formData.append("dossier", this.id);
+      // Appel avec axios
+      axios
+        .post("/api/liste_analyses", formData)
+        .then(response => {
+          // Traitement en API
+          console.log(response.data);
+          this.corpus = response.data.content;
+          this.loadingAnalyses = false;
+          for (let i = 0; i < response.data.content.length; i++) {
+            this.listeAnalyses.push(response.data.content[i].nom);
+          }
+          // Fin de traitement en API
+        })
+        .catch(error => {
+          alert(error2.data);
+          this.loadingAnalyses = false;
         });
     },
     formAddCorpus() {
@@ -462,6 +516,7 @@ export default {
               "lien",
               `https://demangejeremy.pythonanywhere.com/static/idhn/${response.data.name}.txt`
             );
+            formData.append("idtxt", response.data.name);
             formData.append("nom", this.nomFile);
             formData.append("dossier", this.id);
             formData.append("format", this.typeFile);
