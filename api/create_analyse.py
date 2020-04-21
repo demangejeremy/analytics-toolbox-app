@@ -52,7 +52,7 @@ def idhn():
 
     # Ajout en dictionnaire
     mycol = mydb["analyses"]
-    mydict = { "dossier": dossier, "nom": analyse, "corpus": corpus, "pre": pre, "description": description, "idtxt": identifAnalyse, "date": str(datetime_object)}
+    mydict = { "dossier": dossier, "nom": "Fiche de première analyse", "corpus": corpus, "pre": pre, "description": description, "idtxt": identifAnalyse, "date": str(datetime_object)}
 
     # Ajouter en bdd
     try:

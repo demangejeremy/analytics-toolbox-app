@@ -28,12 +28,14 @@
     <v-dialog v-model="viewAnalyse" persistent max-width="800px">
       <v-card outlined class="bgc-white">
         <v-card-title>
-          <span class="headline"><b>Nuage de mots</b></span>
+          <span class="headline"
+            ><b>{{ analyseLive }}</b></span
+          >
         </v-card-title>
         <v-card-text>
           <v-container>
             <iframe
-              src="https://res.cloudinary.com/fakir/image/upload/v1587354613/analytics-toolbox/1_x_oWNj934KrGaEDsN6J3jw_uv2unn.png"
+              :src="lienIframe2"
               width="1000"
               height="500"
               frameborder="0"
@@ -317,6 +319,8 @@ export default {
     listeCorpus: [],
     listeAnalyses: [],
     lienIframe: null,
+    lienIframe2: null,
+    analyseLive: null,
     corpusLive: null,
     loadingCorpus: true,
     loadingAnalyses: true,
@@ -419,6 +423,11 @@ export default {
       this.lienIframe = lien;
       this.viewCorpus = true;
     },
+    openAnalyse(lien, nom) {
+      this.analyseLive = nom;
+      this.lienIframe2 = `https://demangejeremy.pythonanywhere.com/static/idhn/${lien}_analyse.html`;
+      this.viewAnalyse = true;
+    },
     getCorpus() {
       let formData = new FormData();
       formData.append("user", "Linguiste");
@@ -451,11 +460,8 @@ export default {
         .then(response => {
           // Traitement en API
           console.log(response.data);
-          this.corpus = response.data.content;
+          this.analyses = response.data.content;
           this.loadingAnalyses = false;
-          for (let i = 0; i < response.data.content.length; i++) {
-            this.listeAnalyses.push(response.data.content[i].nom);
-          }
           // Fin de traitement en API
         })
         .catch(error => {

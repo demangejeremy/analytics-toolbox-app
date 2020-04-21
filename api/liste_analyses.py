@@ -40,7 +40,7 @@ def idhn():
 
     # Ajouter dans une collection
     mycol = mydb["analyses"]
-    myquery = { "utilisateur": login, "dossier": dossier }
+    myquery = { "dossier": dossier }
     mydoc = mycol.find(myquery)
 
     # Stockage
@@ -50,7 +50,7 @@ def idhn():
     # Affichage
     print("Avant affichage")
     for x in mydoc:
-        content.append({"id": idc, "lien": x["lien"], "nom": x["nom"], "description": x["description"]})
+        content.append({"id": idc, "lien": x["idtxt"], "nom": x["nom"], "description": x["description"]})
         print(content)
         idc += 1
 
