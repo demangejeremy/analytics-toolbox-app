@@ -21,7 +21,7 @@ app = Flask(__name__)
 def idhn():
     # Recupérer données du formulaire
     utilisateur = escape(request.form['user'])
-    lienImage = escape(request.form['lien'])
+    # lienImage = escape(request.form['lien'])
     nom = escape(request.form['nom'])
     description = escape(request.form['description'])
     datetime_object = datetime.datetime.now()
@@ -38,7 +38,7 @@ def idhn():
     # Ajouter dans une collection
     mycol = mydb["dossiers"]
     # Ajout en dictionnaire
-    mydict = { "utilisateur": utilisateur, "dossier": dossier, "nom": nom, "lien": lienImage, "description": description, "date": str(datetime_object)}
+    mydict = { "utilisateur": utilisateur, "dossier": dossier, "nom": nom, "description": description, "date": str(datetime_object)}
     # Ajouter en bdd
     try:
         mycol.insert_one(mydict)
