@@ -32,7 +32,6 @@ def idhn():
         myclient = pymongo.MongoClient(environ.get('MONGODB_URL'))
     except:
         print("Connexion impossible à la BDD")
-        print(environ.get('MONGODB_URL'))
         raise
     mydb = myclient["analyticstoolbox"]
     # Ajouter dans une collection
