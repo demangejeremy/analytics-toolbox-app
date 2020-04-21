@@ -3,12 +3,14 @@
     <v-dialog v-model="viewCorpus" persistent max-width="500px">
       <v-card outlined class="bgc-white">
         <v-card-title>
-          <span class="headline"><b>Corpus de test</b></span>
+          <span class="headline"
+            ><b>{{ corpusLive }}</b></span
+          >
         </v-card-title>
         <v-card-text>
           <v-container>
             <iframe
-              src="https://res.cloudinary.com/fakir/raw/upload/v1586659293/1578865117_hd25ry.txt"
+              :src="lienIframe"
               width="100%"
               height="500px"
               frameborder="0"
@@ -112,6 +114,7 @@
               <v-col cols="12" sm="12">
                 <v-select
                   :items="listeCorpus"
+                  v-model="corpusSelected"
                   label="Sélectionner le fichier corpus à analyser"
                 ></v-select>
               </v-col>
@@ -177,7 +180,8 @@
               </v-col>
               <v-col cols="12" sm="12">
                 <v-select
-                  :items="['Nuage de mots', 'Topic Modelling (NLTK & Gensim)']"
+                  :items="analyses"
+                  v-model="analyseSelected"
                   label="Sélectionner l'analyse à réaliser après pré-traitements"
                 ></v-select>
               </v-col>
@@ -235,7 +239,7 @@
               </v-card-text>
 
               <v-card-actions>
-                <v-btn color="orange" text @click="viewCorpus = true">
+                <v-btn color="orange" text @click="openCorpus(c.lien, c.nom)">
                   Voir le corpus
                 </v-btn>
               </v-card-actions>
@@ -298,8 +302,13 @@ export default {
   middleware: "auth",
 
   data: () => ({
+    // Analyses
+    analyseSelected: null,
+    corpusSelected: null,
     // Affichage des corpus
     listeCorpus: [],
+    lienIframe: null,
+    corpusLive: null,
     loadingCorpus: true,
     corpus: [],
     // Affichage des analyses
@@ -307,10 +316,10 @@ export default {
     // Id de la page
     id: "",
     // Liste pré-traitements
-    pretraitements: ["Lemmatisation", "Stop words"],
+    pretraitements: ["Stop words"],
     selectedPretraitements: [],
     // Liste analyses
-    analyses: ["Nuage de mots", "Topic Modelling (NLTK & Gensim)"],
+    analyses: ["Nuage de mots", "Fiche de première analyse"],
     selectedAnalyses: [],
     // Fichiers
     typeFile: null,
@@ -372,6 +381,11 @@ export default {
   },
 
   methods: {
+    openCorpus(lien, nom) {
+      this.corpusLive = nom;
+      this.lienIframe = lien;
+      this.viewCorpus = true;
+    },
     getCorpus() {
       let formData = new FormData();
       formData.append("user", "Linguiste");
