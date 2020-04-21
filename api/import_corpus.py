@@ -37,7 +37,7 @@ def idhn():
     # Ajouter dans une collection
     mycol = mydb["corpus_texte"]
     # Ajout en dictionnaire
-    mydict = { "utilisateur": utilisateur, "lien": lienFichier, "nom": nomFichier, "format": formatFichier, "description": descriptionFichier, "date": str(datetime_object)}
+    mydict = { "utilisateur": utilisateur, "dossier": dossier, "lien": lienFichier, "nom": nomFichier, "format": formatFichier, "description": descriptionFichier, "date": str(datetime_object)}
     # Ajouter en bdd
     try:
         mycol.insert_one(mydict)

@@ -24,7 +24,7 @@ app = Flask(__name__)
 def idhn():
     
     # Recupérer données du formulaire
-    login = escape(request.form['login'])
+    login = escape(request.form['user'])
     dossier = escape(request.form['dossier'])
 
     # Enregistrer en BDD
@@ -41,18 +41,18 @@ def idhn():
     # Ajouter dans une collection
     mycol = mydb["corpus_texte"]
     myquery = { "utilisateur": login, "dossier": dossier }
+    mydoc = mycol.find(myquery)
 
     # Stockage
-    lien = []
-    nom = []
-    description = []
+    idc = 0
+    content = []
 
     # Affichage
-    for x in mycol.find(myquery):
-        print(x)
-        lien.append(x["lien"])
-        nom.append(x["nom"])
-        description.append(x["description"])
+    print("Avant affichage")
+    for x in mydoc:
+        content.append({"id": idc, "lien": x["lien"], "nom": x["nom"], "description": x["description"]})
+        print(content)
+        idc += 1
 
     # Retour de résultat
-    return jsonify(success="yes", lien=lien, description=description, nom=nom)
+    return jsonify(success="yes", content=content)

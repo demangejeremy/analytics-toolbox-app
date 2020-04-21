@@ -208,30 +208,43 @@
         </v-col>
       </v-row>
       <v-row class="mt-8 d-flex justify-start">
-        <v-col class="d-flex justify-start" cols="4">
-          <v-card class="mx-auto" max-width="400">
-            <v-img
-              class="white--text align-end"
-              height="200px"
-              src="/img/tweets-politiques-test.jpg"
-              gradient="to bottom left, rgba(100,115,201,.33), rgba(25,32,72,.7)"
-            >
-              <v-card-title>Corpus de test</v-card-title>
-            </v-img>
+        <div v-if="loadingCorpus">
+          <h4>Liste des corpus en cours de chargement...</h4>
+        </div>
+        <div v-if="corpus">
+          <v-col
+            class="d-flex justify-start"
+            cols="4"
+            v-for="c in corpus"
+            :key="c.id"
+          >
+            <v-card class="mx-auto" max-width="400">
+              <v-img
+                class="white--text align-end"
+                height="200px"
+                src="/img/tweets-politiques-test.jpg"
+                gradient="to bottom left, rgba(100,115,201,.33), rgba(25,32,72,.7)"
+              >
+                <v-card-title>{{ c.nom }}</v-card-title>
+              </v-img>
 
-            <v-card-text class="text--primary">
-              <p>
-                Premier corpus de texte.
-              </p>
-            </v-card-text>
+              <v-card-text class="text--primary">
+                <p>
+                  {{ c.description }}
+                </p>
+              </v-card-text>
 
-            <v-card-actions>
-              <v-btn color="orange" text @click="viewCorpus = true">
-                Voir le corpus
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
+              <v-card-actions>
+                <v-btn color="orange" text @click="viewCorpus = true">
+                  Voir le corpus
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+        </div>
+        <div class="mb-5" v-else>
+          <h2>Aucun dossier crée</h2>
+        </div>
       </v-row>
     </v-container>
     <v-container class="mt-5">
@@ -285,6 +298,12 @@ export default {
   middleware: "auth",
 
   data: () => ({
+    // Affichage des corpus
+    loadingCorpus: true,
+    corpus: [],
+    // Affichage des analyses
+    analyses: [],
+    // Id de la page
     id: "",
     // Liste pré-traitements
     pretraitements: ["Lemmatisation", "Stop words"],
@@ -347,7 +366,30 @@ export default {
     }
   },
 
+  mounted() {
+    this.getCorpus();
+  },
+
   methods: {
+    getCorpus() {
+      let formData = new FormData();
+      formData.append("user", "Linguiste");
+      formData.append("dossier", this.id);
+      // Appel avec axios
+      axios
+        .post("/api/liste_corpus", formData)
+        .then(response => {
+          // Traitement en API
+          console.log(response.data);
+          this.corpus = response.data.content;
+          this.loadingCorpus = false;
+          // Fin de traitement en API
+        })
+        .catch(error => {
+          alert(error2.data);
+          this.loadingCorpus = false;
+        });
+    },
     formAddCorpus() {
       console.log("test");
       this.upload();
