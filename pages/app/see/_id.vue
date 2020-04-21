@@ -402,6 +402,7 @@ export default {
               `https://demangejeremy.pythonanywhere.com/static/idhn/${response.data.name}.txt`
             );
             formData.append("nom", this.nomFile);
+            formData.append("dossier", this.id);
             formData.append("format", this.typeFile);
             formData.append("description", this.descriptionFile);
             // Appel avec axios

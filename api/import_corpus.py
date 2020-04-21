@@ -19,6 +19,7 @@ app = Flask(__name__)
 def idhn():
     # Recupérer données du formulaire
     utilisateur = escape(request.form['user'])
+    dossier = escape(request.form['dossier'])
     lienFichier = escape(request.form['lien'])
     nomFichier = escape(request.form['nom'])
     formatFichier = escape(request.form['format'])
