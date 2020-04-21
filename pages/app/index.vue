@@ -81,7 +81,7 @@
       <div v-else>
         <v-row class="mt-8 d-flex justify-start">
           <v-col
-            class="d-flex justify-start"
+            class="d-flex ml-8 justify-start"
             cols="4"
             v-for="c in dossiers"
             :key="c.id"

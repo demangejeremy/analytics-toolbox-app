@@ -111,7 +111,7 @@
             <v-row>
               <v-col cols="12" sm="12">
                 <v-select
-                  :items="['Corpus de test']"
+                  :items="listeCorpus"
                   label="Sélectionner le fichier corpus à analyser"
                 ></v-select>
               </v-col>
@@ -299,6 +299,7 @@ export default {
 
   data: () => ({
     // Affichage des corpus
+    listeCorpus: [],
     loadingCorpus: true,
     corpus: [],
     // Affichage des analyses
@@ -383,6 +384,10 @@ export default {
           console.log(response.data);
           this.corpus = response.data.content;
           this.loadingCorpus = false;
+          for (let i = 0; i < response.data.content.length; i++) {
+            console.log("Hello !");
+            this.listeCorpus.push(response.data.content[i].nom);
+          }
           // Fin de traitement en API
         })
         .catch(error => {
