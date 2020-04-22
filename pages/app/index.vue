@@ -81,12 +81,12 @@
       <div v-else>
         <v-row class="mt-8 d-flex justify-start">
           <v-col
-            class="d-flex ml-8 justify-start"
+            class="d-flex justify-start"
             cols="4"
             v-for="c in dossiers"
             :key="c.id"
           >
-            <v-card class="mx-auto" max-width="400">
+            <v-card class="mx-auto">
               <v-img
                 class="white--text align-end"
                 height="200px"
