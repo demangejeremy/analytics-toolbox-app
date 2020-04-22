@@ -57,11 +57,11 @@
         </v-card-title>
         <v-card-text>
           <v-container>
-            <form @submit.prevent="formAddCorpus">
+            <v-form ref="formCorpus" v-model="validCorpus" lazy-validation>
               <v-row>
                 <v-col cols="12" sm="12">
                   <v-file-input
-                    :rules="rulesFile"
+                    :rules="rulesFichierCorpus"
                     accept=".txt"
                     placeholder="Choisissez un fichier texte"
                     prepend-icon="mdi-file"
@@ -71,6 +71,7 @@
                 </v-col>
                 <v-col cols="12" sm="12">
                   <v-select
+                    :rules="rulesFormatFichier"
                     :items="['Fichier texte simple', 'Fichier format iramuteq']"
                     v-model="typeFile"
                     label="Format du fichier"
@@ -78,6 +79,7 @@
                 </v-col>
                 <v-col cols="12" sm="12">
                   <v-text-field
+                    :rules="rulesNomFichier"
                     label="Nom du fichier"
                     autocomplete="mnjuio"
                     v-model="nomFile"
@@ -87,21 +89,31 @@
                 </v-col>
                 <v-col cols="12" sm="12">
                   <v-text-field
+                    :rules="rulesDescFichier"
                     label="Description du fichier"
                     autocomplete="adp"
                     v-model="descriptionFile"
                     hint="Décrivez ce que l'on peut trouver dans le fichier texte."
                     :counter="150"
                   ></v-text-field>
+                  <v-alert v-if="loading" type="warning" class="mt-5">
+                    Le fichier est en cours d'importation. Merci de patienter.
+                  </v-alert>
                 </v-col>
               </v-row>
-            </form>
+            </v-form>
           </v-container>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="closeCorpus">Fermer</v-btn>
-          <v-btn color="blue darken-1" text @click="submitFile">Créer</v-btn>
+          <v-btn
+            color="blue darken-1"
+            :disabled="!validCorpus"
+            text
+            @click="submitFile"
+            >Créer</v-btn
+          >
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -133,7 +145,7 @@
                         <v-icon
                           :color="
                             selectedPretraitements.length > 0
-                              ? 'indigo darken-4'
+                              ? 'white darken-4'
                               : ''
                           "
                           >{{ icon }}</v-icon
@@ -186,6 +198,9 @@
                   v-model="analyseSelected"
                   label="Sélectionner l'analyse à réaliser après pré-traitements"
                 ></v-select>
+                <v-alert v-if="loading" type="warning" class="mt-5">
+                  Le fichier est en cours d'importation. Merci de patienter.
+                </v-alert>
               </v-col>
             </v-row>
           </v-container>
@@ -217,14 +232,17 @@
         <div v-if="loadingCorpus">
           <h4>Liste des corpus en cours de chargement...</h4>
         </div>
-        <div v-if="!loadingCorpus">
+      </v-row>
+
+      <div v-if="!loadingCorpus">
+        <v-row class="mt-8 d-flex justify-start">
           <v-col
             class="d-flex justify-start"
             cols="4"
             v-for="c in corpus"
             :key="c.id"
           >
-            <v-card class="mx-auto" max-width="400">
+            <v-card class="mx-auto">
               <v-img
                 class="white--text align-end"
                 height="200px"
@@ -247,11 +265,8 @@
               </v-card-actions>
             </v-card>
           </v-col>
-        </div>
-        <div class="mb-5" v-else>
-          <h2>Aucun dossier crée</h2>
-        </div>
-      </v-row>
+        </v-row>
+      </div>
     </v-container>
     <v-container class="mt-5">
       <v-row>
@@ -268,14 +283,17 @@
         <div v-if="loadingAnalyses">
           <h4>Liste des analyses en cours de chargement...</h4>
         </div>
-        <div v-if="!loadingAnalyses">
+      </v-row>
+
+      <div v-if="!loadingAnalyses">
+        <v-row class="mt-8 d-flex justify-start">
           <v-col
             class="d-flex justify-start"
             cols="4"
             v-for="c in analyses"
             :key="c.id"
           >
-            <v-card class="mx-auto" max-width="400">
+            <v-card class="mx-auto">
               <v-img
                 class="white--text align-end"
                 height="200px"
@@ -298,8 +316,8 @@
               </v-card-actions>
             </v-card>
           </v-col>
-        </div>
-      </v-row>
+        </v-row>
+      </div>
     </v-container>
   </div>
 </template>
@@ -312,6 +330,21 @@ export default {
   middleware: "auth",
 
   data: () => ({
+    // Formulaire de validation corpus
+    validCorpus: true,
+    rulesFichierCorpus: [
+      value =>
+        !value ||
+        value.size < 2000000 ||
+        "Le fichier doit être inférieure à 2MB."
+    ],
+    rulesFormatFichier: [
+      v => !!v || "Le format du fichier doit être spécifié."
+    ],
+    rulesNomFichier: [v => !!v || "Le nom du fichier doit être spécifié."],
+    rulesDescFichier: [
+      v => !!v || "La description du fichier ne doit pas être vide."
+    ],
     // Analyses
     analyseSelected: null,
     corpusSelected: null,
@@ -322,6 +355,7 @@ export default {
     lienIframe2: null,
     analyseLive: null,
     corpusLive: null,
+    loading: false,
     loadingCorpus: true,
     loadingAnalyses: true,
     corpus: [],
@@ -469,10 +503,6 @@ export default {
           this.loadingAnalyses = false;
         });
     },
-    formAddCorpus() {
-      console.log("test");
-      this.upload();
-    },
     toggle() {
       this.$nextTick(() => {
         if (this.likesAllFruit) {
@@ -483,7 +513,9 @@ export default {
       });
     },
     submitFile() {
-      this.upload();
+      if (this.$refs.formCorpus.validate()) {
+        this.upload();
+      }
     },
     test() {
       this.id = this.$route.params.id;
@@ -533,17 +565,20 @@ export default {
               .then(response2 => {
                 // Traitement en API
                 console.log(response2.data);
+                this.loading = false;
                 alert(response2.data.message);
                 document.location.reload(true);
                 // Fin de traitement en API
               })
               .catch(error2 => {
                 alert(error2.data);
+                this.loading = false;
               });
             // Fin de traitement en API
           })
           .catch(error => {
             alert(error.data);
+            this.loading = false;
           });
       }
     }
