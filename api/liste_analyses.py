@@ -24,7 +24,7 @@ app = Flask(__name__)
 def idhn():
     
     # Recupérer données du formulaire
-    login = escape(request.form['user'])
+    # login = escape(request.form['user'])
     dossier = escape(request.form['dossier'])
 
     # Enregistrer en BDD
