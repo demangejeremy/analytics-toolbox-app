@@ -217,7 +217,7 @@
         <div v-if="loadingCorpus">
           <h4>Liste des corpus en cours de chargement...</h4>
         </div>
-        <div v-if="corpus">
+        <div v-if="!loadingCorpus">
           <v-col
             class="d-flex justify-start"
             cols="4"
@@ -268,7 +268,7 @@
         <div v-if="loadingAnalyses">
           <h4>Liste des analyses en cours de chargement...</h4>
         </div>
-        <div v-if="analyses">
+        <div v-if="!loadingAnalyses">
           <v-col
             class="d-flex justify-start"
             cols="4"
