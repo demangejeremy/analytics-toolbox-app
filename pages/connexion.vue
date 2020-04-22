@@ -78,6 +78,7 @@ export default {
   middleware: "guest",
   data: () => ({
     login: "",
+    snackbarBad: false,
     password: "",
     valid: true,
     loading: false,

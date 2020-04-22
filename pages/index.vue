@@ -17,9 +17,7 @@
             <p>
               Text Analytics Toolbox (actuellement en version bêta), vous
               permets de gérer vos corpus et de lancer des analyses de celles-ci
-              directement en ligne. Nous possédons plusieurs serveurs puissants
-              en Europe qui vous permettront de générer vos analyses dans le
-              cloud en seulement quelques secondes.
+              directement en ligne.
             </p>
             <p>
               Notre outil est en Open Source (sous licence MIT). Nous vous
@@ -27,8 +25,8 @@
               propre serveur et nous vous fournirons le code source nécessaire.
             </p>
             <p>
-              Pour toute question, merci de contacter Jérémy DEMANGE à cette
-              adresse : jeremy (at) fakir.io
+              Pour toute question, merci de contacter Jérémy DEMANGE du
+              Laboratoire IDHN à cette adresse : jeremy (at) fakir.io
             </p>
             <v-btn
               to="/creer-compte-idhn"

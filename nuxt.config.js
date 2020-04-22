@@ -38,11 +38,16 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ["@nuxtjs/axios", "cookie-universal-nuxt"],
+  modules: [
+    [
+      "@nuxtjs/axios",
+      {
+        // baseUrl: "http://127.0.0.1:5000/"
+      }
+    ],
+    "cookie-universal-nuxt"
+  ],
 
-  axios: {
-    // proxyHeaders: false
-  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
