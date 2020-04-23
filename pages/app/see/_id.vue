@@ -200,7 +200,7 @@
               </v-col>
               <v-col cols="12" sm="12">
                 <v-select
-                  :items="analyses"
+                  :items="analysesListing"
                   v-model="analyseSelected"
                   label="Sélectionner l'analyse à réaliser après pré-traitements"
                 ></v-select>
@@ -376,7 +376,7 @@ export default {
     pretraitements: ["Stop words"],
     selectedPretraitements: [],
     // Liste analyses
-    analyses: ["Fiche de premières statistiques"],
+    analysesListing: ["Fiche de premières statistiques", "X"],
     selectedAnalyses: [],
     // Fichiers
     typeFile: null,

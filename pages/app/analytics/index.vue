@@ -193,7 +193,7 @@ export default {
         {
           name: "Fiche de premières statistiques",
           type: "Analyse",
-          description: "Informations de base sur le corpus",
+          description: "Informations de base sur le corpus.",
           link: "https://github.com/demangejeremy"
         }
         // {
