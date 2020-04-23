@@ -411,12 +411,8 @@ export default {
 
   head() {
     return {
-      titleTemplate: this.id + " - Text Analytics Toolbox"
+      titleTemplate: this.nomDossier + " - Text Analytics Toolbox"
     };
-  },
-
-  created() {
-    this.test();
   },
 
   computed: {
@@ -434,6 +430,7 @@ export default {
   },
 
   mounted() {
+    this.test();
     this.getCorpus();
     this.getAnalyse();
   },
