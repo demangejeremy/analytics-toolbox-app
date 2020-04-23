@@ -376,7 +376,7 @@ export default {
     pretraitements: ["Stop words"],
     selectedPretraitements: [],
     // Liste analyses
-    analyses: ["Nuage de mots", "Fiche de première analyse"],
+    analyses: ["Fiche de premières statistiques"],
     selectedAnalyses: [],
     // Fichiers
     typeFile: null,

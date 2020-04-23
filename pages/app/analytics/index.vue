@@ -1,5 +1,66 @@
 <template>
   <div>
+    <v-dialog v-model="createAnalytics" persistent max-width="600px">
+      <v-card outlined>
+        <v-card-title>
+          <span class="headline"><b>Ajouter une analyse</b></span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-form ref="form" v-model="validAnalytics" lazy-validation>
+              <v-row>
+                <v-col cols="12" sm="12">
+                  <v-file-input
+                    accept=".py,.js"
+                    placeholder="Choisissez un fichier de script Python"
+                    prepend-icon="mdi-file"
+                    label="Fichier Python"
+                    v-model="file"
+                  ></v-file-input>
+                </v-col>
+                <v-col cols="12" sm="12">
+                  <v-select
+                    :items="['Scraping', 'Pré-traitement', 'Analyse']"
+                    v-model="typeAnalytics"
+                    label="Type d'analyse"
+                  ></v-select>
+                </v-col>
+                <v-col cols="12" sm="12">
+                  <v-text-field
+                    label="Nom de l'analyse"
+                    autocomplete="mnjuio"
+                    v-model="nomAnalytics"
+                    :counter="30"
+                    required
+                  ></v-text-field>
+                </v-col>
+                <v-col cols="12" sm="12">
+                  <v-text-field
+                    label="Description de l'analyse"
+                    autocomplete="adp"
+                    v-model="descAnalytics"
+                    hint="Décrivez très brièvement ce que l'on peut faire avec ce script."
+                    :counter="90"
+                  ></v-text-field>
+                  <v-alert v-if="loading" type="warning" class="mt-5">
+                    Le fichier est en cours d'importation. Merci de patienter.
+                  </v-alert>
+                </v-col>
+              </v-row>
+            </v-form>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="createAnalytics = false"
+            >Fermer</v-btn
+          >
+          <v-btn color="blue darken-1" :disabled="!validAnalytics" text
+            >Créer</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <v-container>
       <h1>👨🏻‍💻 Analyses</h1>
       <p class="mt-4">
@@ -52,6 +113,16 @@ export default {
   layout: "app",
   middleware: "auth",
   data: () => ({
+    // Modals
+    createAnalytics: false,
+    file: null,
+    validAnalytics: false,
+    typeAnalytics: null,
+    loading: false,
+    descAnalytics: null,
+    nomAnalytics: null,
+    typeAnalytics: null,
+    // Autre
     dialog: false,
     headers: [
       {
@@ -100,19 +171,19 @@ export default {
 
   methods: {
     addAnalytics() {
-      console.log("Analyse");
+      this.createAnalytics = true;
     },
     seeLink(item) {
       window.open(item.link, "_blank");
     },
     initialize() {
       this.analyses = [
-        {
-          name: "Lemmatisation (bêta)",
-          type: "Pré-traitement",
-          description: "Lemmatisation d'un texte donné.",
-          link: "https://github.com/ClaudeCoulombe/FrenchLefffLemmatizer"
-        },
+        // {
+        //   name: "Lemmatisation (bêta)",
+        //   type: "Pré-traitement",
+        //   description: "Lemmatisation d'un texte donné.",
+        //   link: "https://github.com/ClaudeCoulombe/FrenchLefffLemmatizer"
+        // },
         {
           name: "Stop words",
           type: "Pré-traitement",
@@ -120,18 +191,24 @@ export default {
           link: "https://github.com/Alir3z4/python-stop-words"
         },
         {
-          name: "Nuage de mots",
+          name: "Fiche de premières statistiques",
           type: "Analyse",
-          description: "Génération d'un nuage de mots (100 mots par défaut).",
-          link: "https://github.com/amueller/word_cloud"
-        },
-        {
-          name: "Topic Modelling (NLTK & Gensim)",
-          type: "Analyse",
-          description:
-            "Génération d'un Topic Modelling interactif en HTML avec NLTK & Gensim.",
-          link: "https://github.com/RaRe-Technologies/gensim"
+          description: "Informations de base sur le corpus",
+          link: "https://github.com/demangejeremy"
         }
+        // {
+        //   name: "Nuage de mots",
+        //   type: "Analyse",
+        //   description: "Génération d'un nuage de mots (100 mots par défaut).",
+        //   link: "https://github.com/amueller/word_cloud"
+        // },
+        // {
+        //   name: "Topic Modelling (NLTK & Gensim)",
+        //   type: "Analyse",
+        //   description:
+        //     "Génération d'un Topic Modelling interactif en HTML avec NLTK & Gensim.",
+        //   link: "https://github.com/RaRe-Technologies/gensim"
+        // }
       ];
     },
 
