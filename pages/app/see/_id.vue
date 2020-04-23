@@ -19,6 +19,9 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="saveLink"
+            >Télécharger</v-btn
+          >
           <v-btn color="blue darken-1" text @click="viewCorpus = false"
             >Fermer</v-btn
           >
@@ -44,6 +47,9 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="saveLink2"
+            >Télécharger</v-btn
+          >
           <v-btn color="blue darken-1" text @click="viewAnalyse = false"
             >Fermer</v-btn
           >
@@ -324,6 +330,7 @@
 
 <script>
 import axios from "axios";
+import saveAs from "@/functions/saveWithJs";
 
 export default {
   layout: "app",
@@ -430,6 +437,12 @@ export default {
   },
 
   methods: {
+    saveLink2() {
+      saveAs(this.lienIframe2);
+    },
+    saveLink() {
+      saveAs(this.lienIframe);
+    },
     goAnalyse() {
       if (this.selectedAnalyses == "Nuage de mots") {
         alert("Impossible de réaliser l'analyse suivante : Nuage de mots");
