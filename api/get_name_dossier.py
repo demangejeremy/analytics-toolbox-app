@@ -43,8 +43,6 @@ def idhn():
     mydoc = mycol.find(myquery)
 
     # Stockage
-    idc = 0
-    content = []
     nomDossier = ""
 
     # Affichage
