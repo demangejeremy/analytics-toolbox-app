@@ -56,7 +56,7 @@
       </v-card>
     </v-dialog>
     <v-container>
-      <h1>Bonjour Linguiste 👋</h1>
+      <h1>Bonjour {{ userName }} 👋</h1>
       <p class="mt-4">Bienvenue sur l'application Text Analytics Toolbox.</p>
       <p>
         L'application vous permets de gérer vos corpus, de lancer des
@@ -120,6 +120,8 @@ import axios from "axios";
 
 export default {
   data: () => ({
+    // Nom utilisateur
+    userName: "",
     // Rules
     myLink: "app/see/",
     loadingDossiers: true,
@@ -148,7 +150,14 @@ export default {
     this.getFolder();
   },
 
+  created() {
+    this.nomUser();
+  },
+
   methods: {
+    nomUser() {
+      this.userName = this.$cookies.get("nameU");
+    },
     getFolder() {
       let formData = new FormData();
       formData.append("user", "Linguiste");

@@ -115,6 +115,10 @@ export default {
                 path: "/",
                 maxAge: 86400
               });
+              this.$cookies.set("nameU", response.data.nom, {
+                path: "/",
+                maxAge: 86400
+              });
               this.$cookies.set("sess", String(response.data.token), {
                 path: "/",
                 maxAge: 86400

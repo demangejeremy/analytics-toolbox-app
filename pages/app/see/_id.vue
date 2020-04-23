@@ -220,7 +220,7 @@
     </v-dialog>
     <v-container>
       <h1>Dossier</h1>
-      <!-- <h3>{{ id }}</h3> -->
+      <h3>{{ nomDossier }}</h3>
       <hr class="mt-6" />
     </v-container>
     <v-container>
@@ -337,6 +337,8 @@ export default {
   middleware: "auth",
 
   data: () => ({
+    // Nom dossier
+    nomDossier: "__________",
     // Formulaire de validation corpus
     validCorpus: true,
     rulesFichierCorpus: [
@@ -512,7 +514,7 @@ export default {
           // Fin de traitement en API
         })
         .catch(error => {
-          alert(error2.data);
+          alert(error.data);
           this.loadingAnalyses = false;
         });
     },
@@ -532,6 +534,19 @@ export default {
     },
     test() {
       this.id = this.$route.params.id;
+      let formData = new FormData();
+      formData.append("id", this.id);
+      // Appel avec axios
+      axios
+        .post("/api/get_name_dossier", formData)
+        .then(response => {
+          // Traitement en API
+          this.nomDossier = response.data.nom;
+          // Fin de traitement en API
+        })
+        .catch(error => {
+          alert(error.data);
+        });
     },
     newCorpus() {
       this.createCorpus = true;

@@ -38,5 +38,9 @@ def idhn():
     # Retour de résultat
     if login == "Linguiste" and password == "idhn4Ever!":
         return jsonify(success="yes", nom="Linguiste", id=1, token=encoded)
+    elif login == "julien" and password == "idhn2020#":
+        return jsonify(success="yes", nom="Julien", id=1, token=encoded)
+    elif login == "jeremy" and password == "idhn2020#":
+        return jsonify(success="yes", nom="Jérémy", id=1, token=encoded)
     else:
         return jsonify(success="no")
