@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt generate --spa",
+    "build2": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate"
   },
