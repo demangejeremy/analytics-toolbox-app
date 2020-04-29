@@ -9,5 +9,8 @@ RUN apt-get update -yq \
 ADD . /app/
 
 WORKDIR /app
+RUN npm install && npm run build2
 
-CMD npm run build2 && npm run start
+EXPOSE 3000
+
+CMD npm run start
